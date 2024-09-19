@@ -40,6 +40,7 @@ class _TodoViewState extends State<TodoView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
         ///추가버튼
         floatingActionButton: _getFloatingButton(),
         appBar: AppBar(
@@ -63,7 +64,9 @@ class _TodoViewState extends State<TodoView> {
           ),
         );
         if (result != null) {
-          setState(() {todoList.add(result);});
+          setState(() {
+            todoList.add(result);
+          });
           debugPrint('[TodoList] todoList.length = ${todoList.length}');
         }
       },
@@ -79,8 +82,9 @@ class _TodoViewState extends State<TodoView> {
         if (state is TodoListLoading) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is TodoListSuccess) {
-          if(todoList.isEmpty){
-          todoList.addAll(state.data);}
+          if (todoList.isEmpty) {
+            todoList.addAll(state.data);
+          }
         } else if (state is TodoListError) {
           WidgetsBinding.instance.addPostFrameCallback(
             (_) => showDialog(
@@ -124,10 +128,7 @@ class _TodoViewState extends State<TodoView> {
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("User ID : $userId"),
-                          Text("ID : $id")
-                        ],
+                        children: [Text("User ID : $userId"), Text("ID : $id")],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -187,6 +188,7 @@ class _TodoViewState extends State<TodoView> {
                         todoList.removeAt(index);
                       });
                     },
+                    /////
                     child: const Icon(Icons.delete_outline),
                   ),
                 ),
@@ -213,7 +215,6 @@ class _TodoViewState extends State<TodoView> {
       );
     }
   }
-
 
   Future<void> deleteTodo(int id) async {
     deleteTodoBloc.add(DeleteTodo(id));
