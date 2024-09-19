@@ -45,12 +45,16 @@ dependencies:
 
   # State Management
   bloc: ^8.1.4
+  flutter_bloc: ^8.1.6
+
 
   # Dependency Injection
   get_it: ^7.7.0
 
   # Secure Storage
   flutter_secure_storage: ^4.2.1
+  locator: ^0.0.0-dev.2
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies:
   freezed: ^2.5.7
@@ -78,6 +82,9 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  assets:
+    - assets/svg/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
@@ -108,4 +115,3 @@ flutter:
   #         weight: 700
   #
   # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/to/font-from-package

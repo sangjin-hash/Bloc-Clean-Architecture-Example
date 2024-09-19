@@ -1,7 +1,11 @@
 import 'package:bloc_clean_architecture_example/core/util/di/injection_container.dart';
 import 'package:bloc_clean_architecture_example/presentation/post/screen/post_view.dart';
+import 'package:bloc_clean_architecture_example/presentation/todo/bloc/post_textfield_cubit/post_textfield_cubit.dart';
+import 'package:bloc_clean_architecture_example/presentation/todo/bloc/todo_bloc.dart';
 import 'package:bloc_clean_architecture_example/presentation/todo/screen/todo_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'presentation/todo/bloc/post_radiobutton_cubits/post_radio_button_cubit.dart';
 
 void main() {
   setupLocator();
@@ -22,6 +26,7 @@ class _AppState extends State<App> {
     PostView(),
   ];
 
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -30,26 +35,34 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primaryColor: Colors.white,
-      ),
-      home: Scaffold(
-        body: _screen[_selectedIndex],
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.today_outlined),
-              label: 'Todo',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.article),
-              label: 'Post',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: Colors.blue,
-          onTap: _onItemTapped,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => TodoListBloc()),
+        BlocProvider(create: (context) => TodoPostBloc()),
+        BlocProvider(create: (context) => PostTextFieldBloc()),
+        BlocProvider(create: (context) => DeleteTodoBloc()),
+      ],
+      child: MaterialApp(
+        theme: ThemeData(
+          primaryColor: Colors.white,
+        ),
+        home: Scaffold(
+          body: _screen[_selectedIndex],
+          bottomNavigationBar: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.today_outlined),
+                label: 'Todo',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.article),
+                label: 'Post',
+              ),
+            ],
+            currentIndex: _selectedIndex,
+            selectedItemColor: Colors.blue,
+            onTap: _onItemTapped,
+          ),
         ),
       ),
     );

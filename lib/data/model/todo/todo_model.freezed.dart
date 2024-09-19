@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'todo_response_model.dart';
+part of 'todo_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,47 +14,46 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-TodoResponseModel _$TodoResponseModelFromJson(Map<String, dynamic> json) {
-  return _TodoResponseModel.fromJson(json);
+TodoModel _$TodoModelFromJson(Map<String, dynamic> json) {
+  return _TodoModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$TodoResponseModel {
+mixin _$TodoModel {
   int get userId => throw _privateConstructorUsedError;
   int get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   bool get completed => throw _privateConstructorUsedError;
 
-  /// Serializes this TodoResponseModel to a JSON map.
+  /// Serializes this TodoModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of TodoResponseModel
+  /// Create a copy of TodoModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $TodoResponseModelCopyWith<TodoResponseModel> get copyWith =>
+  $TodoModelCopyWith<TodoModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $TodoResponseModelCopyWith<$Res> {
-  factory $TodoResponseModelCopyWith(
-          TodoResponseModel value, $Res Function(TodoResponseModel) then) =
-      _$TodoResponseModelCopyWithImpl<$Res, TodoResponseModel>;
+abstract class $TodoModelCopyWith<$Res> {
+  factory $TodoModelCopyWith(TodoModel value, $Res Function(TodoModel) then) =
+      _$TodoModelCopyWithImpl<$Res, TodoModel>;
   @useResult
   $Res call({int userId, int id, String title, bool completed});
 }
 
 /// @nodoc
-class _$TodoResponseModelCopyWithImpl<$Res, $Val extends TodoResponseModel>
-    implements $TodoResponseModelCopyWith<$Res> {
-  _$TodoResponseModelCopyWithImpl(this._value, this._then);
+class _$TodoModelCopyWithImpl<$Res, $Val extends TodoModel>
+    implements $TodoModelCopyWith<$Res> {
+  _$TodoModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of TodoResponseModel
+  /// Create a copy of TodoModel
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -86,25 +85,25 @@ class _$TodoResponseModelCopyWithImpl<$Res, $Val extends TodoResponseModel>
 }
 
 /// @nodoc
-abstract class _$$TodoResponseModelImplCopyWith<$Res>
-    implements $TodoResponseModelCopyWith<$Res> {
-  factory _$$TodoResponseModelImplCopyWith(_$TodoResponseModelImpl value,
-          $Res Function(_$TodoResponseModelImpl) then) =
-      __$$TodoResponseModelImplCopyWithImpl<$Res>;
+abstract class _$$TodoModelImplCopyWith<$Res>
+    implements $TodoModelCopyWith<$Res> {
+  factory _$$TodoModelImplCopyWith(
+          _$TodoModelImpl value, $Res Function(_$TodoModelImpl) then) =
+      __$$TodoModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int userId, int id, String title, bool completed});
 }
 
 /// @nodoc
-class __$$TodoResponseModelImplCopyWithImpl<$Res>
-    extends _$TodoResponseModelCopyWithImpl<$Res, _$TodoResponseModelImpl>
-    implements _$$TodoResponseModelImplCopyWith<$Res> {
-  __$$TodoResponseModelImplCopyWithImpl(_$TodoResponseModelImpl _value,
-      $Res Function(_$TodoResponseModelImpl) _then)
+class __$$TodoModelImplCopyWithImpl<$Res>
+    extends _$TodoModelCopyWithImpl<$Res, _$TodoModelImpl>
+    implements _$$TodoModelImplCopyWith<$Res> {
+  __$$TodoModelImplCopyWithImpl(
+      _$TodoModelImpl _value, $Res Function(_$TodoModelImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of TodoResponseModel
+  /// Create a copy of TodoModel
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -114,7 +113,7 @@ class __$$TodoResponseModelImplCopyWithImpl<$Res>
     Object? title = null,
     Object? completed = null,
   }) {
-    return _then(_$TodoResponseModelImpl(
+    return _then(_$TodoModelImpl(
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -137,15 +136,15 @@ class __$$TodoResponseModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TodoResponseModelImpl implements _TodoResponseModel {
-  _$TodoResponseModelImpl(
+class _$TodoModelImpl implements _TodoModel {
+  _$TodoModelImpl(
       {required this.userId,
       required this.id,
       required this.title,
       required this.completed});
 
-  factory _$TodoResponseModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$TodoResponseModelImplFromJson(json);
+  factory _$TodoModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TodoModelImplFromJson(json);
 
   @override
   final int userId;
@@ -158,14 +157,14 @@ class _$TodoResponseModelImpl implements _TodoResponseModel {
 
   @override
   String toString() {
-    return 'TodoResponseModel(userId: $userId, id: $id, title: $title, completed: $completed)';
+    return 'TodoModel(userId: $userId, id: $id, title: $title, completed: $completed)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$TodoResponseModelImpl &&
+            other is _$TodoModelImpl &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
@@ -177,32 +176,31 @@ class _$TodoResponseModelImpl implements _TodoResponseModel {
   @override
   int get hashCode => Object.hash(runtimeType, userId, id, title, completed);
 
-  /// Create a copy of TodoResponseModel
+  /// Create a copy of TodoModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$TodoResponseModelImplCopyWith<_$TodoResponseModelImpl> get copyWith =>
-      __$$TodoResponseModelImplCopyWithImpl<_$TodoResponseModelImpl>(
-          this, _$identity);
+  _$$TodoModelImplCopyWith<_$TodoModelImpl> get copyWith =>
+      __$$TodoModelImplCopyWithImpl<_$TodoModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$TodoResponseModelImplToJson(
+    return _$$TodoModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _TodoResponseModel implements TodoResponseModel {
-  factory _TodoResponseModel(
+abstract class _TodoModel implements TodoModel {
+  factory _TodoModel(
       {required final int userId,
       required final int id,
       required final String title,
-      required final bool completed}) = _$TodoResponseModelImpl;
+      required final bool completed}) = _$TodoModelImpl;
 
-  factory _TodoResponseModel.fromJson(Map<String, dynamic> json) =
-      _$TodoResponseModelImpl.fromJson;
+  factory _TodoModel.fromJson(Map<String, dynamic> json) =
+      _$TodoModelImpl.fromJson;
 
   @override
   int get userId;
@@ -213,10 +211,10 @@ abstract class _TodoResponseModel implements TodoResponseModel {
   @override
   bool get completed;
 
-  /// Create a copy of TodoResponseModel
+  /// Create a copy of TodoModel
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$TodoResponseModelImplCopyWith<_$TodoResponseModelImpl> get copyWith =>
+  _$$TodoModelImplCopyWith<_$TodoModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
