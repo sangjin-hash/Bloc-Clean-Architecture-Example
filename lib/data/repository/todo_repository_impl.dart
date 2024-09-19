@@ -11,9 +11,9 @@ class TodoRepositoryImpl implements TodoRepository {
 
   /// Create
   @override
-  Future<Result<TodoModel>> postTodos(TodoModel model) async {
+  Future<Result<TodoModel>> createTodos(TodoModel model) async {
     try {
-      final data = await api.postTodos(model);
+      final data = await api.createTodos(model);
       return Result.success(data);
     } catch (error) {
       return Result.failure(NetworkExceptions.getErrorMessage(
@@ -35,9 +35,9 @@ class TodoRepositoryImpl implements TodoRepository {
 
   /// Update
   @override
-  Future<Result<TodoModel>> putTodos(TodoModel model , int id) async {
+  Future<Result<TodoModel>> updateTodos(int id, TodoModel model) async {
     try {
-      final data = await api.putTodos(model,id);
+      final data = await api.updateTodos(id, model);
       return Result.success(data);
     } catch (error) {
       return Result.failure(NetworkExceptions.getErrorMessage(

@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-/*
-import 'package:geolocator/geolocator.dart';
-import 'package:value_up/core/resource/palette.dart';
-*/
+
 
 class AppWidgets {
   static Widget getErrorMessage(BuildContext context, String errMsg) {
     return AlertDialog(
-      contentPadding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+      contentPadding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
       content: Stack(
         alignment: Alignment.center,
         children: [
           Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
-              Text(
+              const Text(
                 '오류',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -26,18 +22,18 @@ class AppWidgets {
                   color: Colors.black,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(
                 errMsg,
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 14,
                   color: Colors.grey,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
             ],
@@ -46,7 +42,7 @@ class AppWidgets {
             top: 0.0,
             right: -10.0,
             child: IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.close_rounded,
                 color: Colors.black,
               ),
@@ -67,14 +63,14 @@ class AppWidgets {
                 style: TextButton.styleFrom(
                     padding: EdgeInsets.zero,
                     foregroundColor: Colors.white,
-                    fixedSize: Size(127, 56),
+                    fixedSize: const Size(127, 56),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
                     backgroundColor: Colors.black),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text(
+                child: const Text(
                   '확인',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -86,7 +82,7 @@ class AppWidgets {
             ),
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
       ],

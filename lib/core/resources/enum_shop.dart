@@ -1,0 +1,1 @@
+enum RadioButtonOption { yes, no }

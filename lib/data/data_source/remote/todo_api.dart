@@ -11,7 +11,7 @@ class TodoApi {
   TodoApi({required this.dioClient});
 
   /// Create
-  Future<TodoModel> postTodos(TodoModel model) async {
+  Future<TodoModel> createTodos(TodoModel model) async {
     try {
       final response =
           await DioClient.instance.post(todoUrl, data: model.toJson());
@@ -39,7 +39,7 @@ class TodoApi {
   }
 
   /// Update
-  Future<TodoModel> putTodos(TodoModel model, int id) async {
+  Future<TodoModel> updateTodos(int id, TodoModel model) async {
     try {
       final response =
       await DioClient.instance.put("$todoUrl/$id", data: model.toJson());
