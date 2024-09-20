@@ -1,7 +1,6 @@
 import 'package:bloc_clean_architecture_example/core/util/network/result/result.dart';
 import 'package:bloc_clean_architecture_example/domain/entity/todo.dart';
 
-/// interface
 abstract class TodoRepository {
   Future<Result<List<Todo>>> getTodos();
 

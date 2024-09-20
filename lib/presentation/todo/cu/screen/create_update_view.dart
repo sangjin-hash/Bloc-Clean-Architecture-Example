@@ -42,7 +42,6 @@ class _CreateScreenState extends State<CreateUpdateView> {
   late bool isUpdate;
 
   /// Data Field => Param
-/*  late CreateTodoParam param;*/
   TodoParam param = TodoParam();
 
   @override
@@ -57,13 +56,14 @@ class _CreateScreenState extends State<CreateUpdateView> {
       param.completed = widget.entity!.completed;
 
       /// Initialize TextController text
-      userIdController.text = '${param.userId}';
-      idController.text = '${param.id}';
+      userIdController.text = '${param.userId!}';
+      idController.text = '${param.id!}';
       titleController.text = param.title!;
 
       updateTodoBloc = BlocProvider.of<UpdateTodoBloc>(context);
     } else {
       isUpdate = false;
+      param.completed = true;
       createTodoBloc = BlocProvider.of<CreateTodoBloc>(context);
     }
     todoBloc = BlocProvider.of<TodoBloc>(context);
