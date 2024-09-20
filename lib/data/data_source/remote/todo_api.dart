@@ -39,21 +39,22 @@ class TodoApi {
   }
 
   /// Update
-  Future<TodoModel> updateTodos(int id, TodoModel model) async {
+  Future<TodoModel> updateTodos(TodoModel model) async {
     try {
-      final response =
-      await DioClient.instance.put("$todoUrl/$id", data: model.toJson());
+      final response = await DioClient.instance
+          .put("$todoUrl/${model.id}", data: model.toJson());
       return TodoModel.fromJson(response);
     } catch (error) {
       debugPrint('$TAG getTodos = $error');
       throw NetworkExceptions.getDioException(error);
     }
   }
+
   /// Delete
-  Future<void> deleteTodos(int id) async{
-    try{
+  Future<void> deleteTodos(int id) async {
+    try {
       await dioClient.delete("$todoUrl/$id");
-    }catch (error) {
+    } catch (error) {
       debugPrint('$TAG getTodos = $error');
       throw NetworkExceptions.getDioException(error);
     }

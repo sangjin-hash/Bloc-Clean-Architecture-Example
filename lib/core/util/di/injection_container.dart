@@ -5,6 +5,8 @@ import 'package:bloc_clean_architecture_example/data/repository/post_repository_
 import 'package:bloc_clean_architecture_example/data/repository/todo_repository_impl.dart';
 import 'package:bloc_clean_architecture_example/domain/repository/post_repository.dart';
 import 'package:bloc_clean_architecture_example/domain/repository/todo_repository.dart';
+import 'package:bloc_clean_architecture_example/domain/usecase/create_todo.dart';
+import 'package:bloc_clean_architecture_example/domain/usecase/get_todo.dart';
 import 'package:get_it/get_it.dart';
 
 final locator = GetIt.instance;
@@ -16,6 +18,12 @@ void setupLocator() {
   locator.registerLazySingleton<TodoApi>(() => TodoApi(dioClient: dioClient));
   locator.registerLazySingleton<TodoRepository>(
       () => TodoRepositoryImpl(api: locator<TodoApi>()));
+  locator.registerLazySingleton<CreateTodoUseCase>(
+          () => CreateTodoUseCase(todoRepository: locator<TodoRepository>()));
+  locator.registerLazySingleton<GetTodoUseCase>(
+          () => GetTodoUseCase(todoRepository: locator<TodoRepository>()));
+  /// todo: DeleteTodoUseCase, UpdateTodoUseCase
+
 
   /// Post
   locator.registerLazySingleton<PostApi>(() => PostApi(dioClient: dioClient));

@@ -5,9 +5,9 @@ sealed class CreateTodoEvent extends Equatable {
 }
 
 class CreateTodo extends CreateTodoEvent {
-  final TodoModel model;
-  const CreateTodo(this.model);
+  final CreateTodoParam param;
+  const CreateTodo(this.param);
 
   @override
-  List<Object?> get props => [model];
+  List<Object?> get props => [param];
 }

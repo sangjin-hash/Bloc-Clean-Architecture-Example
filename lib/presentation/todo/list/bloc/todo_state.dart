@@ -15,7 +15,7 @@ final class TodoLoading extends TodoState {
 }
 
 final class GetTodoSuccess extends TodoState {
-  final List<TodoModel> data;
+  final List<Todo> data;
 
   const GetTodoSuccess(this.data);
 
@@ -34,22 +34,21 @@ final class DeleteTodoSuccess extends TodoState {
 
 final class UpdateTodoDone extends TodoState {
   final int index;
-  final TodoModel model;
+  final Todo entity;
 
-  const UpdateTodoDone(this.index, this.model);
+  const UpdateTodoDone(this.index, this.entity);
 
   @override
-  List<Object?> get props => [index, model];
+  List<Object?> get props => [index, entity];
 }
 
 final class CreateTodoDone extends TodoState {
+  final Todo entity;
 
-  final TodoModel model;
-
-  const CreateTodoDone(this.model);
+  const CreateTodoDone(this.entity);
 
   @override
-  List<Object?> get props => [model];
+  List<Object?> get props => [entity];
 }
 
 final class TodoFailure extends TodoState {

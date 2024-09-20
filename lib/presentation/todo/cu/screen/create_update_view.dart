@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc_clean_architecture_example/core/resources/text.dart';
 import 'package:bloc_clean_architecture_example/core/widgets/app_widgets.dart';
 import 'package:bloc_clean_architecture_example/data/model/todo/todo_model.dart';
+import 'package:bloc_clean_architecture_example/domain/entity/todo.dart';
 import 'package:bloc_clean_architecture_example/presentation/todo/cu/bloc/common/radio_button/todo_radio_button_cubit.dart';
 import 'package:bloc_clean_architecture_example/presentation/todo/cu/bloc/common/text_field/todo_text_field_cubit.dart';
 import 'package:bloc_clean_architecture_example/presentation/todo/cu/bloc/create/create_todo_bloc.dart';
@@ -11,15 +12,16 @@ import 'package:bloc_clean_architecture_example/presentation/todo/cu/widgets/com
 import 'package:bloc_clean_architecture_example/presentation/todo/cu/widgets/submit_button.dart';
 import 'package:bloc_clean_architecture_example/presentation/todo/cu/widgets/todo_text_field.dart';
 import 'package:bloc_clean_architecture_example/presentation/todo/list/bloc/todo_bloc.dart';
+import 'package:bloc_clean_architecture_example/presentation/todo/param/create_todo_param.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CreateUpdateView extends StatefulWidget {
   final int? index;
-  final TodoModel? model;
+  final Todo? entity;
 
-  const CreateUpdateView({super.key, this.index, this.model});
+  const CreateUpdateView({super.key, this.index, this.entity});
 
   @override
   State<CreateUpdateView> createState() => _CreateScreenState();
@@ -40,22 +42,19 @@ class _CreateScreenState extends State<CreateUpdateView> {
   /// CreateView or UpdateView flag
   late bool isUpdate;
 
-  /// Data Fields
-  late int _id;
-  late int _userId;
-  late String _title;
-  bool _completed = true;
+  /// Data Field => Param
+  late CreateTodoParam param;
 
   @override
   void initState() {
-    if (widget.model != null) {
+    if (widget.entity != null) {
       isUpdate = true;
 
       /// Initialize data fields
-      _id = widget.model!.id;
-      _userId = widget.model!.userId;
-      _title = widget.model!.title;
-      _completed = widget.model!.completed;
+      _id = widget.entity!.id;
+      _userId = widget.entity!.userId;
+      _title = widget.entity!.title;
+      _completed = widget.entity!.completed;
 
       /// Initialize TextController text
       userIdController.text = '$_userId';
@@ -157,7 +156,7 @@ class _CreateScreenState extends State<CreateUpdateView> {
           inputDecoration: const InputDecoration(labelText: TText.labelText1),
           controller: userIdController,
           onChanged: (value) {
-            _userId = int.parse(value);
+            param.copyWith(userId: int.parse(value));
             context.read<TodoTextFieldCubit>().updateField1(value);
           },
         ),
@@ -170,7 +169,7 @@ class _CreateScreenState extends State<CreateUpdateView> {
           inputDecoration: const InputDecoration(labelText: TText.labelText2),
           controller: idController,
           onChanged: (value) {
-            _id = int.parse(value);
+            param.copyWith(id: int.parse(value));
             context.read<TodoTextFieldCubit>().updateField2(value);
           },
         ),
@@ -182,7 +181,7 @@ class _CreateScreenState extends State<CreateUpdateView> {
           inputDecoration: const InputDecoration(labelText: TText.labelText3),
           controller: titleController,
           onChanged: (value) {
-            _title = value;
+            param.copyWith(title: value);
             context.read<TodoTextFieldCubit>().updateField3(value);
           },
         ),
@@ -191,11 +190,11 @@ class _CreateScreenState extends State<CreateUpdateView> {
         /// RadioButton
         CompletedRadioButton(
           onChanged1: (value) {
-            _completed = true;
+            param.copyWith(completed: true);
             return context.read<TodoRadioButtonCubit>().isCompleted(value);
           },
           onChanged2: (value) {
-            _completed = false;
+            param.copyWith(completed: false);
             return context.read<TodoRadioButtonCubit>().isCompleted(value);
           },
         ),
@@ -207,7 +206,7 @@ class _CreateScreenState extends State<CreateUpdateView> {
             isUpdate
                 ? updateTodo(
                     id: _id, index: widget.index!, model: toRequestModel())
-                : createTodo(toRequestModel());
+                : createTodo(param);
           }
         })
       ],
@@ -220,13 +219,8 @@ class _CreateScreenState extends State<CreateUpdateView> {
         titleController.text.isNotEmpty;
   }
 
-  TodoModel toRequestModel() {
-    return TodoModel(
-        userId: _userId, id: _id, title: _title, completed: _completed);
-  }
-
-  Future<void> createTodo(TodoModel model) async {
-    createTodoBloc.add(CreateTodo(model));
+  Future<void> createTodo(CreateTodoParam param) async {
+    createTodoBloc.add(CreateTodo(param));
   }
 
   Future<void> updateTodo(

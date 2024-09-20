@@ -22,7 +22,7 @@ class TodoFloatingActionButton extends StatelessWidget {
               BlocProvider(create: (context) => TodoRadioButtonCubit(initial)),
               BlocProvider(create: (context) => TodoTextFieldCubit()),
               BlocProvider(create: (context) => CreateTodoBloc()),
-            ], child: const CreateUpdateView(model: null)),
+            ], child: const CreateUpdateView(entity: null)),
           ),
         );
       },

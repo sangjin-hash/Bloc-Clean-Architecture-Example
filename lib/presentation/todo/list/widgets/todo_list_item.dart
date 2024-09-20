@@ -1,6 +1,6 @@
 import 'package:bloc_clean_architecture_example/core/resources/enum_shop.dart';
 import 'package:bloc_clean_architecture_example/core/resources/text.dart';
-import 'package:bloc_clean_architecture_example/data/model/todo/todo_model.dart';
+import 'package:bloc_clean_architecture_example/domain/entity/todo.dart';
 import 'package:bloc_clean_architecture_example/presentation/todo/cu/bloc/common/radio_button/todo_radio_button_cubit.dart';
 import 'package:bloc_clean_architecture_example/presentation/todo/cu/bloc/common/text_field/todo_text_field_cubit.dart';
 import 'package:bloc_clean_architecture_example/presentation/todo/cu/bloc/update/update_todo_bloc.dart';
@@ -14,12 +14,12 @@ class TodoListItem extends StatelessWidget {
   const TodoListItem(
       {super.key,
       required this.index,
-      required this.model,
+      required this.entity,
       required this.scrollController,
       required this.todoBloc});
 
   final int index;
-  final TodoModel model;
+  final Todo entity;
   final ScrollController scrollController;
   final TodoBloc todoBloc;
 
@@ -40,8 +40,8 @@ class TodoListItem extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("${TText.userIdText}${model.userId}"),
-                    Text("${TText.idText}${model.id}")
+                    Text("${TText.userIdText}${entity.userId}"),
+                    Text("${TText.idText}${entity.id}")
                   ],
                 ),
                 Row(
@@ -49,11 +49,11 @@ class TodoListItem extends StatelessWidget {
                   children: [
                     Flexible(
                       child: Text(
-                        "${TText.titleText}${model.title}",
+                        "${TText.titleText}${entity.title}",
                         maxLines: 2,
                       ),
                     ),
-                    Container(child: _getCompleted(model.completed)),
+                    Container(child: _getCompleted(entity.completed)),
                   ],
                 ),
               ],
@@ -64,7 +64,7 @@ class TodoListItem extends StatelessWidget {
             child: ElevatedButton(
                 onPressed: () async {
                   _scrollToFirst();
-                  final RadioButtonOption initial = model.completed
+                  final RadioButtonOption initial = entity.completed
                       ? RadioButtonOption.yes
                       : RadioButtonOption.no;
 
@@ -77,7 +77,7 @@ class TodoListItem extends StatelessWidget {
                             create: (context) => TodoRadioButtonCubit(initial)),
                         BlocProvider(create: (context) => TodoTextFieldCubit()),
                         BlocProvider(create: (context) => UpdateTodoBloc()),
-                      ], child: CreateUpdateView(index: index, model: model)),
+                      ], child: CreateUpdateView(index: index, entity: entity)),
                     ),
                   );
                 },
@@ -87,7 +87,7 @@ class TodoListItem extends StatelessWidget {
             width: 80,
             child: ElevatedButton(
               onPressed: () {
-                deleteTodo(id: model.id, index: index);
+                deleteTodo(id: entity.id, index: index);
                 _scrollToFirst();
               },
               /////
