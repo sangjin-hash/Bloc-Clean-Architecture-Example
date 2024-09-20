@@ -7,11 +7,11 @@ sealed class UpdateTodoEvent extends Equatable {
 class UpdateTodo extends UpdateTodoEvent {
   final int id;
   final int index;
-  final TodoModel model;
+  final TodoParam param;
 
   const UpdateTodo(
-      {required this.id, required this.index, required this.model});
+      {required this.id, required this.index, required this.param});
 
   @override
-  List<Object?> get props => [id, model];
+  List<Object?> get props => [id, index, param];
 }

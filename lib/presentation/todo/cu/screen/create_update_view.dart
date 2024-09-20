@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc_clean_architecture_example/core/resources/text.dart';
 import 'package:bloc_clean_architecture_example/core/widgets/app_widgets.dart';
-import 'package:bloc_clean_architecture_example/data/model/todo/todo_model.dart';
 import 'package:bloc_clean_architecture_example/domain/entity/todo.dart';
 import 'package:bloc_clean_architecture_example/presentation/todo/cu/bloc/common/radio_button/todo_radio_button_cubit.dart';
 import 'package:bloc_clean_architecture_example/presentation/todo/cu/bloc/common/text_field/todo_text_field_cubit.dart';
@@ -12,7 +11,7 @@ import 'package:bloc_clean_architecture_example/presentation/todo/cu/widgets/com
 import 'package:bloc_clean_architecture_example/presentation/todo/cu/widgets/submit_button.dart';
 import 'package:bloc_clean_architecture_example/presentation/todo/cu/widgets/todo_text_field.dart';
 import 'package:bloc_clean_architecture_example/presentation/todo/list/bloc/todo_bloc.dart';
-import 'package:bloc_clean_architecture_example/presentation/todo/param/create_todo_param.dart';
+import 'package:bloc_clean_architecture_example/presentation/todo/param/todo_param.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,7 +42,8 @@ class _CreateScreenState extends State<CreateUpdateView> {
   late bool isUpdate;
 
   /// Data Field => Param
-  late CreateTodoParam param;
+/*  late CreateTodoParam param;*/
+  TodoParam param = TodoParam();
 
   @override
   void initState() {
@@ -51,15 +51,15 @@ class _CreateScreenState extends State<CreateUpdateView> {
       isUpdate = true;
 
       /// Initialize data fields
-      _id = widget.entity!.id;
-      _userId = widget.entity!.userId;
-      _title = widget.entity!.title;
-      _completed = widget.entity!.completed;
+      param.id = widget.entity!.id;
+      param.userId = widget.entity!.userId;
+      param.title = widget.entity!.title;
+      param.completed = widget.entity!.completed;
 
       /// Initialize TextController text
-      userIdController.text = '$_userId';
-      idController.text = '$_id';
-      titleController.text = _title;
+      userIdController.text = '${param.userId}';
+      idController.text = '${param.id}';
+      titleController.text = param.title!;
 
       updateTodoBloc = BlocProvider.of<UpdateTodoBloc>(context);
     } else {
@@ -106,7 +106,7 @@ class _CreateScreenState extends State<CreateUpdateView> {
               },
               listener: (context, state) {
                 if (state is UpdateTodoSuccess) {
-                  updateTodoCompleted(state.index, state.data);
+                  updateTodoCompleted(state.index, state.entity);
                   Navigator.of(context).pop();
                 } else if (state is UpdateTodoFailure) {
                   showDialog(
@@ -128,7 +128,7 @@ class _CreateScreenState extends State<CreateUpdateView> {
               },
               listener: (context, state) {
                 if (state is CreateTodoSuccess) {
-                  createTodoCompleted(state.model);
+                  createTodoCompleted(state.entity);
                   Navigator.of(context).pop();
                 } else if (state is CreateTodoFailure) {
                   showDialog(
@@ -156,7 +156,7 @@ class _CreateScreenState extends State<CreateUpdateView> {
           inputDecoration: const InputDecoration(labelText: TText.labelText1),
           controller: userIdController,
           onChanged: (value) {
-            param.copyWith(userId: int.parse(value));
+            param.userId = int.parse(value);
             context.read<TodoTextFieldCubit>().updateField1(value);
           },
         ),
@@ -169,7 +169,7 @@ class _CreateScreenState extends State<CreateUpdateView> {
           inputDecoration: const InputDecoration(labelText: TText.labelText2),
           controller: idController,
           onChanged: (value) {
-            param.copyWith(id: int.parse(value));
+            param.id = int.parse(value);
             context.read<TodoTextFieldCubit>().updateField2(value);
           },
         ),
@@ -181,7 +181,7 @@ class _CreateScreenState extends State<CreateUpdateView> {
           inputDecoration: const InputDecoration(labelText: TText.labelText3),
           controller: titleController,
           onChanged: (value) {
-            param.copyWith(title: value);
+            param.title = value;
             context.read<TodoTextFieldCubit>().updateField3(value);
           },
         ),
@@ -190,11 +190,11 @@ class _CreateScreenState extends State<CreateUpdateView> {
         /// RadioButton
         CompletedRadioButton(
           onChanged1: (value) {
-            param.copyWith(completed: true);
+            param.completed = true;
             return context.read<TodoRadioButtonCubit>().isCompleted(value);
           },
           onChanged2: (value) {
-            param.copyWith(completed: false);
+            param.completed = false;
             return context.read<TodoRadioButtonCubit>().isCompleted(value);
           },
         ),
@@ -205,7 +205,7 @@ class _CreateScreenState extends State<CreateUpdateView> {
           if (_isNotEmpty()) {
             isUpdate
                 ? updateTodo(
-                    id: _id, index: widget.index!, model: toRequestModel())
+                    id: param.id!, index: widget.index!, param: param)
                 : createTodo(param);
           }
         })
@@ -219,20 +219,22 @@ class _CreateScreenState extends State<CreateUpdateView> {
         titleController.text.isNotEmpty;
   }
 
-  Future<void> createTodo(CreateTodoParam param) async {
+  Future<void> createTodo(TodoParam param) async {
     createTodoBloc.add(CreateTodo(param));
   }
 
   Future<void> updateTodo(
-      {required int id, required int index, required TodoModel model}) async {
-    updateTodoBloc.add(UpdateTodo(id: id, index: index, model: model));
+      {required int id,
+      required int index,
+      required TodoParam param}) async {
+    updateTodoBloc.add(UpdateTodo(id: id, index: index, param: param));
   }
 
-  Future<void> updateTodoCompleted(int index, TodoModel model) async {
-    todoBloc.add(UpdateTodoCompleted(index, model));
+  Future<void> updateTodoCompleted(int index, Todo entity) async {
+    todoBloc.add(UpdateTodoCompleted(index, entity));
   }
 
-  Future<void> createTodoCompleted(TodoModel model) async {
-    todoBloc.add(CreateTodoCompleted(model));
+  Future<void> createTodoCompleted(Todo entity) async {
+    todoBloc.add(CreateTodoCompleted(entity));
   }
 }

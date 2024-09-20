@@ -39,8 +39,8 @@ class TodoRepositoryImpl implements TodoRepository {
   @override
   Future<Result<Todo>> updateTodos(Todo entity) async {
     try {
-      final data = await api.updateTodos(model);
-      return Result.success(data);
+      final data = await api.updateTodos(mapper.toTodoModel(entity));
+      return Result.success(mapper.mapTodoModelToEntity(data));
     } catch (error) {
       return Result.failure(NetworkExceptions.getErrorMessage(
           NetworkExceptions.getDioException(error)));

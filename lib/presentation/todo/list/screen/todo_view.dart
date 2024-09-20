@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc_clean_architecture_example/core/resources/text.dart';
 import 'package:bloc_clean_architecture_example/core/widgets/app_widgets.dart';
-import 'package:bloc_clean_architecture_example/data/model/todo/todo_model.dart';
 import 'package:bloc_clean_architecture_example/domain/entity/todo.dart';
 import 'package:bloc_clean_architecture_example/presentation/todo/list/bloc/todo_bloc.dart';
 import 'package:bloc_clean_architecture_example/presentation/todo/list/widgets/todo_floating_action_button.dart';
@@ -65,7 +64,7 @@ class _TodoViewState extends State<TodoView> {
             } else if (state is UpdateTodoDone) {
               todoList.removeAt(state.index);
               todoList.insert(state.index, state.entity);
-            } else if (state is CreateTodoDone){
+            } else if (state is CreateTodoDone) {
               todoList.add(state.entity);
             } else if (state is TodoFailure) {
               WidgetsBinding.instance.addPostFrameCallback(

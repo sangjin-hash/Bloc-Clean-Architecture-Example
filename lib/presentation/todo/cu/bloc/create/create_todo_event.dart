@@ -5,7 +5,8 @@ sealed class CreateTodoEvent extends Equatable {
 }
 
 class CreateTodo extends CreateTodoEvent {
-  final CreateTodoParam param;
+  final TodoParam param;
+
   const CreateTodo(this.param);
 
   @override

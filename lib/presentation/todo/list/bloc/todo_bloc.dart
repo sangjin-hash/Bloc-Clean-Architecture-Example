@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_clean_architecture_example/core/util/di/injection_container.dart';
 import 'package:bloc_clean_architecture_example/domain/entity/todo.dart';
+import 'package:bloc_clean_architecture_example/domain/usecase/delete_todo.dart';
 import 'package:bloc_clean_architecture_example/domain/usecase/get_todo.dart';
 import 'package:equatable/equatable.dart';
 
@@ -9,6 +10,8 @@ part 'todo_state.dart';
 
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
   GetTodoUseCase useCase = locator<GetTodoUseCase>();
+  DeleteTodoUseCase deleteUseCase = locator<DeleteTodoUseCase>();
+
 
   TodoBloc() : super(TodoInitial()) {
     on<GetTodo>(_getTodoRequested);
@@ -30,7 +33,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   Future<void> _deleteTodoRequested(
       DeleteTodo event, Emitter<TodoState> emit) async {
     emit(TodoLoading());
-    final result = await todoRepository.deleteTodos(event.id);
+    final result = await deleteUseCase.execute(event.id);
     result.when(success: (_) {
       return emit(DeleteTodoSuccess(event.index));
     }, failure: (error) {

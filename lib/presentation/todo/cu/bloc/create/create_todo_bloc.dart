@@ -3,7 +3,7 @@ import 'package:bloc_clean_architecture_example/core/util/di/injection_container
 import 'package:bloc_clean_architecture_example/domain/entity/todo.dart';
 import 'package:bloc_clean_architecture_example/domain/usecase/create_todo.dart';
 import 'package:bloc_clean_architecture_example/presentation/todo/mapper/view_todo_mapper.dart';
-import 'package:bloc_clean_architecture_example/presentation/todo/param/create_todo_param.dart';
+import 'package:bloc_clean_architecture_example/presentation/todo/param/todo_param.dart';
 import 'package:equatable/equatable.dart';
 
 part 'create_todo_event.dart';
@@ -22,7 +22,7 @@ class CreateTodoBloc extends Bloc<CreateTodoEvent, CreateTodoState> {
       CreateTodo event, Emitter<CreateTodoState> emit) async {
     emit(CreateTodoLoading());
     final result =
-        await useCase.execute(mapper.mapCreateTodoParamToEntity(event.param));
+        await useCase.execute(mapper.mapTodoParamToEntity(event.param));
     result.when(success: (data) {
       return emit(CreateTodoSuccess(data));
     }, failure: (error) {
