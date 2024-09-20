@@ -64,6 +64,8 @@ class _TodoViewState extends State<TodoView> {
             } else if (state is UpdateTodoDone) {
               todoList.removeAt(state.index);
               todoList.insert(state.index, state.model);
+            } else if (state is CreateTodoDone){
+              todoList.add(state.model);
             } else if (state is TodoFailure) {
               WidgetsBinding.instance.addPostFrameCallback(
                 (_) => showDialog(

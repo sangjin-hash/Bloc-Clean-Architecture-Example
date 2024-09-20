@@ -129,7 +129,7 @@ class _CreateScreenState extends State<CreateUpdateView> {
               },
               listener: (context, state) {
                 if (state is CreateTodoSuccess) {
-                  // todo : Update 했던 것처럼 추가해보기
+                  createTodoCompleted(state.model);
                   Navigator.of(context).pop();
                 } else if (state is CreateTodoFailure) {
                   showDialog(
@@ -236,5 +236,9 @@ class _CreateScreenState extends State<CreateUpdateView> {
 
   Future<void> updateTodoCompleted(int index, TodoModel model) async {
     todoBloc.add(UpdateTodoCompleted(index, model));
+  }
+
+  Future<void> createTodoCompleted(TodoModel model) async {
+    todoBloc.add(CreateTodoCompleted(model));
   }
 }

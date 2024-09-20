@@ -15,6 +15,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     on<GetTodo>(_getTodoRequested);
     on<DeleteTodo>(_deleteTodoRequested);
     on<UpdateTodoCompleted>(_updateTodoCompleted);
+    on<CreateTodoCompleted>(_createTodoCompleted);
   }
 
   Future<void> _getTodoRequested(GetTodo event, Emitter<TodoState> emit) async {
@@ -42,4 +43,11 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       UpdateTodoCompleted event, Emitter<TodoState> emit) async {
     emit(UpdateTodoDone(event.index, event.model));
   }
+
+  Future<void> _createTodoCompleted(
+      CreateTodoCompleted event, Emitter<TodoState> emit) async {
+    emit(CreateTodoDone(event.model));
+  }
+
+
 }

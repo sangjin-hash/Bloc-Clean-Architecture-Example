@@ -30,3 +30,11 @@ class UpdateTodoCompleted extends TodoEvent {
   @override
   List<Object?> get props => [index, model];
 }
+class CreateTodoCompleted extends TodoEvent {
+  final TodoModel model;
+
+  const CreateTodoCompleted(this.model);
+
+  @override
+  List<Object?> get props => [model];
+}

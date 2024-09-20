@@ -15,12 +15,12 @@ final class CreateTodoLoading extends CreateTodoState {
 }
 
 final class CreateTodoSuccess extends CreateTodoState {
-  final TodoModel data;
+  final TodoModel model;
 
-  const CreateTodoSuccess(this.data);
+  const CreateTodoSuccess(this.model);
 
   @override
-  List<Object> get props => [data];
+  List<Object> get props => [model];
 }
 
 final class CreateTodoFailure extends CreateTodoState {
