@@ -13,6 +13,7 @@ This project was created to understand Clean Architecture using Bloc pattern for
 
 ## Built With 🛠
 - [Flutter BLOC](https://pub.dev/packages/flutter_bloc) - Flutter Widgets that make it easy to implement the BLoC (Business Logic Component) design pattern. Built to be used with the bloc state management package.
+- [Dio](https://pub.dev/packages/dio) - A powerful HTTP networking package, supports Interceptors, Aborting and canceling a request, Custom adapters, Transformers, etc.
 - [Freezed](https://pub.dev/packages/freezed) - Code generator for data classes, unions, and cloning..
 - [Equatable](https://pub.dev/packages/equatable) - A Dart package that helps to implement value based equality without needing to explicitly override == and hashCode.
 - [GetIt](https://pub.dev/packages/get_it) - Simple direct Service Locator that allows to decouple the interface from a concrete implementation and to access the concrete implementation from everywhere in your App
