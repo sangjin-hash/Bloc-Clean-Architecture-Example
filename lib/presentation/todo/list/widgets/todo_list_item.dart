@@ -32,8 +32,9 @@ class TodoListItem extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       child: Row(
         children: [
-          SizedBox(
+          Container(
             width: screenWidth,
+            padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Column(
               children: [
                 Row(
@@ -76,7 +77,7 @@ class TodoListItem extends StatelessWidget {
                             create: (context) => TodoRadioButtonCubit(initial)),
                         BlocProvider(create: (context) => TodoTextFieldCubit()),
                         BlocProvider(create: (context) => UpdateTodoBloc()),
-                      ], child: CreateUpdateView(model: model)),
+                      ], child: CreateUpdateView(index: index, model: model)),
                     ),
                   );
                 },

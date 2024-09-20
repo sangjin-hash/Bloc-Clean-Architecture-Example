@@ -5,6 +5,7 @@ import 'package:bloc_clean_architecture_example/domain/repository/todo_repositor
 import 'package:equatable/equatable.dart';
 
 part 'todo_event.dart';
+
 part 'todo_state.dart';
 
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
@@ -13,10 +14,10 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   TodoBloc() : super(TodoInitial()) {
     on<GetTodo>(_getTodoRequested);
     on<DeleteTodo>(_deleteTodoRequested);
+    on<UpdateTodoCompleted>(_updateTodoCompleted);
   }
 
-  Future<void> _getTodoRequested(
-      GetTodo event, Emitter<TodoState> emit) async {
+  Future<void> _getTodoRequested(GetTodo event, Emitter<TodoState> emit) async {
     emit(TodoLoading());
     final result = await todoRepository.getTodos();
     result.when(success: (data) {
@@ -35,5 +36,10 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     }, failure: (error) {
       return emit(TodoFailure(error));
     });
+  }
+
+  Future<void> _updateTodoCompleted(
+      UpdateTodoCompleted event, Emitter<TodoState> emit) async {
+    emit(UpdateTodoDone(event.index, event.model));
   }
 }

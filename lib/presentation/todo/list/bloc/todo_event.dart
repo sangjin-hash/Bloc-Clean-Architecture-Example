@@ -20,3 +20,13 @@ class DeleteTodo extends TodoEvent {
   @override
   List<Object?> get props => [id];
 }
+
+class UpdateTodoCompleted extends TodoEvent {
+  final int index;
+  final TodoModel model;
+
+  const UpdateTodoCompleted(this.index, this.model);
+
+  @override
+  List<Object?> get props => [index, model];
+}

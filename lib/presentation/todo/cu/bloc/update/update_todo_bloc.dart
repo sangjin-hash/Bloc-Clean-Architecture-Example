@@ -19,7 +19,7 @@ class UpdateTodoBloc extends Bloc<UpdateTodoEvent, UpdateTodoState> {
     emit(UpdateTodoLoading());
     final result = await todoRepository.updateTodos(event.id, event.model);
     result.when(success: (data) {
-      return emit(UpdateTodoSuccess(data));
+      return emit(UpdateTodoSuccess(event.index, data));
     }, failure: (error) {
       return emit(UpdateTodoFailure(error));
     });

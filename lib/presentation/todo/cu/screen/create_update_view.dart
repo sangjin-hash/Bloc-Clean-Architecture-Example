@@ -16,9 +16,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CreateUpdateView extends StatefulWidget {
+  final int? index;
   final TodoModel? model;
 
-  const CreateUpdateView({super.key, required this.model});
+  const CreateUpdateView({super.key, this.index, this.model});
 
   @override
   State<CreateUpdateView> createState() => _CreateScreenState();
@@ -43,7 +44,7 @@ class _CreateScreenState extends State<CreateUpdateView> {
   late int _id;
   late int _userId;
   late String _title;
-  late bool _completed;
+  bool _completed = true;
 
   @override
   void initState() {
@@ -74,8 +75,7 @@ class _CreateScreenState extends State<CreateUpdateView> {
   @override
   void dispose() {
     /// Close Bloc or Cubit
-    createTodoBloc.close();
-    updateTodoBloc.close();
+    isUpdate ? updateTodoBloc.close() : createTodoBloc.close();
     todoTextFieldCubit.close();
 
     /// Dispose TextController
@@ -107,7 +107,7 @@ class _CreateScreenState extends State<CreateUpdateView> {
               },
               listener: (context, state) {
                 if (state is UpdateTodoSuccess) {
-                  todoBloc.add(const GetTodo());
+                  updateTodoCompleted(state.index, state.data);
                   Navigator.of(context).pop();
                 } else if (state is UpdateTodoFailure) {
                   showDialog(
@@ -129,7 +129,7 @@ class _CreateScreenState extends State<CreateUpdateView> {
               },
               listener: (context, state) {
                 if (state is CreateTodoSuccess) {
-                  todoBloc.add(const GetTodo());
+                  // todo : Update 했던 것처럼 추가해보기
                   Navigator.of(context).pop();
                 } else if (state is CreateTodoFailure) {
                   showDialog(
@@ -205,7 +205,8 @@ class _CreateScreenState extends State<CreateUpdateView> {
         SubmitButton(onPressed: () {
           if (_isNotEmpty()) {
             isUpdate
-                ? updateTodo(_id, toRequestModel())
+                ? updateTodo(
+                    id: _id, index: widget.index!, model: toRequestModel())
                 : createTodo(toRequestModel());
           }
         })
@@ -228,7 +229,12 @@ class _CreateScreenState extends State<CreateUpdateView> {
     createTodoBloc.add(CreateTodo(model));
   }
 
-  Future<void> updateTodo(int id, TodoModel model) async {
-    updateTodoBloc.add(UpdateTodo(id, model));
+  Future<void> updateTodo(
+      {required int id, required int index, required TodoModel model}) async {
+    updateTodoBloc.add(UpdateTodo(id: id, index: index, model: model));
+  }
+
+  Future<void> updateTodoCompleted(int index, TodoModel model) async {
+    todoBloc.add(UpdateTodoCompleted(index, model));
   }
 }

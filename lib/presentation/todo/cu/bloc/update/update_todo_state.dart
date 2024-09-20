@@ -15,9 +15,10 @@ final class UpdateTodoLoading extends UpdateTodoState {
 }
 
 final class UpdateTodoSuccess extends UpdateTodoState {
+  final int index;
   final TodoModel data;
 
-  const UpdateTodoSuccess(this.data);
+  const UpdateTodoSuccess(this.index, this.data);
 
   @override
   List<Object> get props => [data];
@@ -31,4 +32,3 @@ final class UpdateTodoFailure extends UpdateTodoState {
   @override
   List<Object> get props => [errorMessage];
 }
-

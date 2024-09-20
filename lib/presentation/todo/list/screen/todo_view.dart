@@ -25,7 +25,6 @@ class _TodoViewState extends State<TodoView> {
 
   /// Model
   List<TodoModel> todoList = [];
-  late TodoModel nowModel;
 
   @override
   void initState() {
@@ -62,6 +61,9 @@ class _TodoViewState extends State<TodoView> {
               todoList = state.data;
             } else if (state is DeleteTodoSuccess) {
               todoList.removeAt(state.index);
+            } else if (state is UpdateTodoDone) {
+              todoList.removeAt(state.index);
+              todoList.insert(state.index, state.model);
             } else if (state is TodoFailure) {
               WidgetsBinding.instance.addPostFrameCallback(
                 (_) => showDialog(

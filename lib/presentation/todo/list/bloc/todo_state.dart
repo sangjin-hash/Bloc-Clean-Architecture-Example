@@ -32,6 +32,16 @@ final class DeleteTodoSuccess extends TodoState {
   List<Object> get props => [index];
 }
 
+final class UpdateTodoDone extends TodoState {
+  final int index;
+  final TodoModel model;
+
+  const UpdateTodoDone(this.index, this.model);
+
+  @override
+  List<Object?> get props => [index, model];
+}
+
 final class TodoFailure extends TodoState {
   final String errorMessage;
 
